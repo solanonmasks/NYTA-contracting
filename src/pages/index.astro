@@ -1,0 +1,397 @@
+---
+// NYTA Contracting Ltd. — one-page site.
+// All the text lives in the lists below or directly in the HTML further down.
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import logo from '../assets/logo.png';
+
+// ----- Contact details -----
+const PHONE = '(778) 865-5998';
+const PHONE_LINK = 'tel:17788655998';
+const CALENDLY = 'https://calendly.com/nytacontracting/30mins';
+
+// ----- Quote form -----
+// Paste your Formspree form URL here (e.g. 'https://formspree.io/f/abcdwxyz')
+// so requests arrive by email. While it's empty, the form does NOT send:
+// it tells visitors to call instead. Connect it before launch.
+const FORM_ENDPOINT = '';
+
+const pad = (i: number) => String(i + 1).padStart(2, '0');
+
+// "What we do" tabs. Each tab has its own list of [title, description].
+const groups: Record<string, [string, string][]> = {
+  Remodeling: [
+    ['Kitchen remodeling', 'Kitchen updates and full remodels, planned and built by one team.'],
+    ['Bathroom remodeling', 'Bathroom renovations from a refresh to a complete rebuild.'],
+    ['Basement remodeling', 'Turn an unfinished or dated basement into usable space.'],
+    ['Residential remodeling', 'Renovations for any part of your home, top to bottom.'],
+    ['Commercial remodeling', 'From small offices with a few rooms to multi-level business complexes.'],
+  ],
+  Construction: [
+    ['Residential construction', 'Residential builds managed from plan to finished result.'],
+    ['Commercial construction', 'Commercial projects of any square footage.'],
+    ['Home additions', 'More space for your home, designed and built by us.'],
+    ['Framing', 'Framing for new construction, additions and renovations.'],
+    ['Deck construction', 'Decks built to suit your home and how you use it.'],
+    ['Patio construction', 'Patios that add usable outdoor space and curb appeal.'],
+  ],
+  Services: [
+    ['Carpentry', 'Skilled carpentry for projects big and small.'],
+    ['Home repairs', 'From small touch-ups to fixes that can’t wait.'],
+    ['Painting', 'Interior and exterior paint jobs that boost curb appeal.'],
+  ],
+};
+const tabNames = Object.keys(groups);
+
+const about = [
+  ['Start to finish', 'We work with you from start to finish on any commercial or residential project. We take care of everything from A to Z.'],
+  ['Customer service first', 'Our team is small enough to stay dedicated to customer service, and experienced enough to offer prices that rival bigger companies.'],
+  ['Any size of project', 'We’ve worked on projects ranging from small offices with a few rooms to multi-level business complexes. Whatever your square footage, we have you covered.'],
+  ['Skilled, licensed crew', 'We only use professional, skilled workers. All are fully bonded and insured, and all meet licensing requirements.'],
+];
+
+const steps = [
+  ['Meet', 'We discuss your ideas, your goals, any concerns, and where your budget is fixed.'],
+  ['Plan', 'A project plan that details every cost, plus a detailed contract and production schedule.'],
+  ['Sign', 'Our crew is ready to start as soon as we agree on the details and sign the contract.'],
+  ['Build', 'Once the crew begins, we keep you updated every step of the way.'],
+];
+
+const faqs = [
+  ['How soon can you start my project?', 'Our crew is ready to begin as soon as we agree on the details and sign a contract. That way we both understand the expectations.'],
+  ['How do we pay you?', 'At our first meeting we create a project plan that details every cost. Payments are due at set points during the project, spelled out clearly in the contract to avoid surprises. Our financial specialist can also advise you on lenders if you need a home equity line of credit.'],
+  ['What can I expect during the project?', 'After we discuss your ideas, we work together on a detailed contract and production schedule. Once our crew starts, we keep you updated every step of the way.'],
+  ['What kind of crew do you use?', 'Only professional, skilled workers, all fully bonded and insured, and all meeting licensing requirements.'],
+  ['Where do the materials come from?', 'Every project is different, but we use local resources as much as possible. Our relationships with quality manufacturers and businesses let us pass the savings on to you.'],
+  ['Why choose NYTA Contracting?', 'We’re a full-service general contractor focused on quality workmanship, guaranteed services and impeccable client care. We’ve never forgotten our humble roots, and our goals remain the same.'],
+];
+
+const projectTypes = ['Remodeling', 'Construction', 'Carpentry', 'Home repairs', 'Painting', 'Commercial'];
+---
+
+<Layout
+  title="NYTA Contracting Ltd | General contracting, remodeling & construction, Surrey"
+  description="General contracting, remodeling and construction, handled start to finish by one small team. Based in Richmond, serving Surrey and surrounding areas. Licensed, insured and bonded. Free, no-obligation quotes."
+>
+  <div id="top" class="page">
+    <!-- ===== Header ===== -->
+    <header class="site-header">
+      <div class="wrap">
+        <a href="#top" class="logo">
+          <Image src={logo} alt="NYTA Contracting Ltd." width={64} height={64} densities={[1, 2]} loading="eager" />
+          <span class="wordmark">NYTA<br /><span>Contracting Ltd.</span></span>
+        </a>
+        <nav class="main-nav" aria-label="Main">
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a href={PHONE_LINK} class="header-phone">{PHONE}</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- ===== Hero ===== -->
+      <section class="hero">
+        <!-- The big N from the logo. Faded behind the text on small screens. -->
+        <div class="hero-mark" aria-hidden="true">
+          <div class="hero-mark-inner">
+            <Image src={logo} alt="" widths={[400, 600]} sizes="(min-width: 980px) 46vw, 90vw" loading="eager" />
+          </div>
+        </div>
+        <div class="wrap hero-content">
+          <span data-hero style="--i:0" class="eyebrow">Licensed · Insured · Bonded</span>
+          <h1 data-hero style="--i:1">Total<br />building<br /><span>solutions.</span></h1>
+          <p data-hero style="--i:2" class="hero-text">
+            General contracting, remodeling and construction, handled start to finish by one small team. Based in
+            Richmond, serving Surrey and surrounding areas.
+          </p>
+          <div data-hero style="--i:3" class="btn-row">
+            <a href="#contact" class="btn btn-yellow">Get a free quote</a>
+            <a href={CALENDLY} target="_blank" rel="noopener" class="btn btn-outline">Book a 30-min call</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Yellow band ===== -->
+      <section class="band">
+        <div class="wrap two-col">
+          <h2 data-reveal class="band-title">One team.<br />A to Z.</h2>
+          <div data-reveal class="band-text">
+            <p class="band-lede">
+              No juggling multiple companies. No crossed lines of communication. Your whole project, commercial or
+              residential, is handled by a single entity: us.
+            </p>
+            <p>
+              With a no-obligation free quote, you know what everything costs before we start. No hidden fees, no nasty
+              surprises. What you see is what you get.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== What we do (tabs) ===== -->
+      <section id="services" class="wrap section-pad">
+        <div data-reveal class="section-head">
+          <h2 class="h2">What we do</h2>
+          <p>From a paint job to a renovation top to bottom. Even the smallest projects get our full attention.</p>
+        </div>
+        <div data-reveal class="tabs" role="tablist" aria-label="Services">
+          {
+            tabNames.map((name, i) => (
+              <button
+                type="button"
+                class="tab"
+                role="tab"
+                id={`tab-${i}`}
+                aria-controls={`panel-${i}`}
+                aria-selected={i === 0 ? 'true' : 'false'}
+                tabindex={i === 0 ? 0 : -1}
+              >
+                {name}
+              </button>
+            ))
+          }
+        </div>
+        {
+          tabNames.map((name, i) => (
+            <div class="service-grid" role="tabpanel" id={`panel-${i}`} aria-labelledby={`tab-${i}`} hidden={i !== 0}>
+              {groups[name].map(([t, d], j) => (
+                <div class="service" style={`--d:${j * 0.07}s`}>
+                  <span class="service-n">{pad(j)}</span>
+                  <h3>{t}</h3>
+                  <p>{d}</p>
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </section>
+
+      <!-- ===== About ===== -->
+      <section id="about" class="about">
+        <div class="wrap section-pad two-col">
+          <div data-reveal class="about-head">
+            <span class="eyebrow">About NYTA</span>
+            <h2 class="h2">Small team.<br /><span>Big skillset.</span></h2>
+          </div>
+          <div class="about-list">
+            {
+              about.map(([t, d]) => (
+                <div data-reveal class="about-item">
+                  <h3>{t}</h3>
+                  <p>{d}</p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== How a project runs ===== -->
+      <section class="wrap section-pad">
+        <h2 data-reveal class="h2 steps-title">How a project runs</h2>
+        <div class="steps">
+          {
+            steps.map(([t, d], i) => (
+              <div data-reveal class="step">
+                <span class="step-n">{pad(i)}</span>
+                <h3>{t}</h3>
+                <p>{d}</p>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- ===== FAQ (one open at a time) ===== -->
+      <section id="faq" class="faq">
+        <div class="faq-wrap section-pad">
+          <h2 data-reveal class="h2">Questions</h2>
+          <div class="faq-list">
+            {
+              faqs.map(([q, a], i) => (
+                <div class="faq-item">
+                  <h3>
+                    <button
+                      type="button"
+                      class="faq-q"
+                      id={`faq-q-${i}`}
+                      aria-expanded={i === 0 ? 'true' : 'false'}
+                      aria-controls={`faq-a-${i}`}
+                    >
+                      <span>{q}</span>
+                      <span class="faq-sign" aria-hidden="true">{i === 0 ? '−' : '+'}</span>
+                    </button>
+                  </h3>
+                  <p class="faq-a" id={`faq-a-${i}`} role="region" aria-labelledby={`faq-q-${i}`} hidden={i !== 0}>
+                    {a}
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Contact ===== -->
+      <section id="contact" class="contact">
+        <div class="wrap section-pad two-col">
+          <div class="contact-info">
+            <h2 data-reveal class="contact-title">Let’s get<br /><span>it built.</span></h2>
+            <p data-reveal class="lede">
+              Free, no-obligation quotes. Call, send the form, or book a 30-minute call at a time that suits you.
+            </p>
+            <a data-reveal href={PHONE_LINK} class="big-phone">{PHONE}</a>
+            <a data-reveal href={CALENDLY} target="_blank" rel="noopener" class="btn-calendly">Book a 30-min call</a>
+            <p data-reveal class="area-note">Located in Richmond. Serving Surrey and surrounding areas.</p>
+          </div>
+
+          <div data-reveal>
+            <form id="quote-form" class="form-card" action={FORM_ENDPOINT} method="POST">
+              <div class="field-row">
+                <label class="field">Name<input name="name" required autocomplete="name" /></label>
+                <label class="field">Phone<input name="phone" type="tel" autocomplete="tel" /></label>
+              </div>
+              <label class="field">Email<input name="email" type="email" required autocomplete="email" /></label>
+              <label class="field">
+                Project type
+                <select name="project_type">
+                  {projectTypes.map((p) => <option>{p}</option>)}
+                </select>
+              </label>
+              <label class="field">Tell us about it<textarea name="details" rows="4"></textarea></label>
+              <p class="form-error" role="alert" hidden></p>
+              <button type="submit" class="submit-btn">Request free quote</button>
+            </form>
+            <p id="quote-thanks" class="thanks" role="status" hidden>Thanks. We’ll be in touch about your quote.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="site-footer">
+      <div class="wrap">
+        <span class="copyright">© {new Date().getFullYear()} NYTA Contracting Ltd.</span>
+        <span>Licensed, insured &amp; bonded · Richmond, BC</span>
+        <a href="https://backpackdigitalmedia.com" target="_blank" rel="noopener">Powered by Backpack Digital Media</a>
+      </div>
+    </footer>
+
+    <!-- ===== Mobile call bar (shows below 980px) ===== -->
+    <div class="mobile-bar">
+      <a href={PHONE_LINK} class="call">Call</a>
+      <a href="#contact" class="quote">Free quote</a>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // ---------- Scroll reveal ----------
+  // Each [data-reveal] element fades up when it scrolls into view.
+  // Siblings are staggered by 90ms.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const revealEls = document.querySelectorAll<HTMLElement>('[data-reveal]');
+
+  if (reduce || !('IntersectionObserver' in window)) {
+    revealEls.forEach((el) => el.classList.add('is-in'));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target as HTMLElement;
+          const siblings = Array.from(el.parentElement?.children ?? []).filter((n) => n.hasAttribute('data-reveal'));
+          el.style.setProperty('--delay', `${Math.max(0, siblings.indexOf(el)) * 0.09}s`);
+          el.classList.add('is-in');
+          io.unobserve(el);
+        });
+      },
+      { rootMargin: '0px 0px -8% 0px' },
+    );
+    revealEls.forEach((el) => io.observe(el));
+  }
+
+  // ---------- Service tabs ----------
+  // Clicking a tab shows its panel. Arrow keys move between tabs.
+  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.tab'));
+  const selectTab = (index: number) => {
+    tabs.forEach((tab, i) => {
+      const on = i === index;
+      tab.setAttribute('aria-selected', String(on));
+      tab.tabIndex = on ? 0 : -1;
+      const panel = document.getElementById(tab.getAttribute('aria-controls') ?? '');
+      if (panel) panel.hidden = !on;
+    });
+  };
+  tabs.forEach((tab, i) => {
+    tab.addEventListener('click', () => selectTab(i));
+    tab.addEventListener('keydown', (e) => {
+      const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!step) return;
+      e.preventDefault();
+      const next = (i + step + tabs.length) % tabs.length;
+      selectTab(next);
+      tabs[next].focus();
+    });
+  });
+
+  // ---------- FAQ accordion ----------
+  // Only one answer is open at a time. Clicking the open one closes it.
+  const questions = Array.from(document.querySelectorAll<HTMLButtonElement>('.faq-q'));
+  questions.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const opening = btn.getAttribute('aria-expanded') !== 'true';
+      questions.forEach((q) => {
+        const on = q === btn && opening;
+        q.setAttribute('aria-expanded', String(on));
+        q.querySelector('.faq-sign')!.textContent = on ? '−' : '+';
+        const answer = document.getElementById(q.getAttribute('aria-controls') ?? '');
+        if (answer) answer.hidden = !on;
+      });
+    }),
+  );
+
+  // ---------- Quote form ----------
+  const form = document.getElementById('quote-form') as HTMLFormElement | null;
+  const thanks = document.getElementById('quote-thanks');
+
+  if (form && thanks) {
+    const errorBox = form.querySelector<HTMLElement>('.form-error')!;
+    const submitBtn = form.querySelector<HTMLButtonElement>('.submit-btn')!;
+    const showError = (text: string) => {
+      errorBox.textContent = text;
+      errorBox.hidden = false;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox.hidden = true;
+      const endpoint = form.getAttribute('action');
+
+      // No form service connected yet: don't pretend it sent.
+      if (!endpoint) {
+        showError('Our online form isn’t connected yet. Please call us at (778) 865-5998.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.hidden = true;
+        thanks.hidden = false;
+      } catch {
+        showError('Sorry, that didn’t send. Please call us at (778) 865-5998 or try again.');
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
+</script>
