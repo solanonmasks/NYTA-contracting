@@ -762,6 +762,13 @@ select {
     display: none;
   }
 }
+/* Very small phones: the header phone button doesn't fit next to the logo.
+   The bottom bar already has a Call button, so hide it here. */
+@media (max-width: 359px) {
+  .header-phone {
+    display: none;
+  }
+}
 @media (min-width: 640px) {
   .service-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
